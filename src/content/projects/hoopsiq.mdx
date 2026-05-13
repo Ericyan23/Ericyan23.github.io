@@ -1,0 +1,77 @@
+---
+title: "HoopsIQ: NBA Performance Insights Platform"
+summary: "A database-backed NBA analytics platform for exploring player profiles, team trends, game results, shooting efficiency, and shot-zone heatmaps."
+category: "Engineering"
+type:
+  - "Full Stack"
+  - "Data Visualization"
+time: "Jan 2024 - May 2024"
+tech:
+  - "Node.js"
+  - "Express"
+  - "Vue"
+  - "PostgreSQL"
+  - "SQL"
+  - "Python"
+  - "nba_api"
+highlights:
+  - "Integrated player bios, box scores, game results, season data, and shot logs into a single analytics product."
+  - "Built API routes for player search, player performance, team trends, game results, live scores, and shot-zone analysis."
+  - "Used SQL queries and preprocessed datasets to support rankings, cumulative scoring, shooting percentages, and heatmap views."
+metrics:
+  - label: "Team"
+    value: "4 members"
+  - label: "Backend"
+    value: "Express + PostgreSQL"
+  - label: "Analytics"
+    value: "Shot zones + trends"
+github: "https://github.com/Ericyan23/CIS5500-Project"
+featured: true
+order: 1
+---
+
+## Summary
+
+HoopsIQ is a database-backed NBA analytics platform built for fans and analysts who want to move beyond box-score summaries. It combines player background data, box scores, game results, season-level performance, and shot logs into a single interactive product.
+
+The project was built by a four-person team. I present it here as evidence of full-stack data product work: data preprocessing, SQL-backed analytics, backend API design, and user-facing views for repeated sports analysis tasks.
+
+## Problem
+
+NBA statistics are widely available, but they are often fragmented across datasets and difficult to inspect in one workflow. A useful analytics product needs to connect player identity, game context, team performance, and shot-level behavior without forcing users to jump between raw tables.
+
+## Decision-Support Angle
+
+HoopsIQ shaped my interest in how analytics systems expose comparison context and repeated workflows. I do not treat this as an ML research project; it is stronger evidence that I can build data products and research prototypes around messy real-world data.
+
+## My Role
+
+I worked across the stack with the team: data preprocessing, SQL-backed querying, API integration, frontend views, and dashboard interactions. My focus was making the product useful for player-level and team-level exploration while keeping the analytical logic inspectable through SQL and route-level APIs.
+
+## Approach
+
+- Preprocessed NBA datasets including player bios, player stats, game results, season data, and shot logs.
+- Built Node.js and Express routes for player search, player details, player performance, team statistics, game results, live scores, shooters, and shot-zone analysis.
+- Used PostgreSQL queries with joins, aggregation, ranking, window functions, and materialized-view-style tables to support fast analytical views.
+- Supported player autocomplete and profile detail pages with biographical fields, total points, assists, rebounds, winning-season averages, and player images.
+- Implemented team-level trend endpoints for three-point share, win percentage, field-goal percentage, and season roster context.
+- Built shooting analytics for top shooters, shot-zone performance, clutch-shot percentages, season filters, zone filters, and heatmap data.
+
+## Results
+
+- Delivered a working local web app with separate modules for player search, team trends, game results, live scores, player performance, and shooting analysis.
+- Connected cleaned NBA datasets to an Express/PostgreSQL backend and interactive frontend views.
+- Supported analysis workflows such as player lookup, season ranking, team trend comparison, top-shooter discovery, and shot-zone heatmap inspection.
+- Created a project structure that separated preprocessing notebooks, SQL query experiments, backend routes, and web application code.
+
+## Tech Stack
+
+Node.js, Express, Vue, PostgreSQL, SQL, Python, nba_api, HTML, CSS.
+
+## Links
+
+- [GitHub repository](https://github.com/Ericyan23/CIS5500-Project)
+
+## What I Learned
+
+This project strengthened my understanding of how analytics products depend on data modeling, query design, and interface design together. The hardest part was not only collecting data, but shaping it into APIs and views that support real questions: which players are performing well, how team shooting styles change by season, and where shot efficiency differs by zone. A stronger future version would add a public deployment and more explicit documentation of schema design and route ownership.

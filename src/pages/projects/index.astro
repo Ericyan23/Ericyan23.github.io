@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99) || a.data.title.localeCompare(b.data.title)
+);
+const categories = ["Research", "Engineering", "Data Science"] as const;
+---
+
+<BaseLayout title="Projects" description="Projects by Sihan Yan across applied machine learning, analytics, and data systems.">
+  <section class="page-shell detail-hero">
+    <p class="eyebrow">Projects</p>
+    <h1>Selected NLP and data systems projects.</h1>
+    <p class="lede">Applied work organized around problems, technical decisions, and evidence.</p>
+  </section>
+
+  <section class="page-shell">
+    {
+      categories.map((category) => {
+        const categoryProjects = projects.filter((project) => project.data.category === category);
+        if (categoryProjects.length === 0) return null;
+        return (
+          <section class="category-section" aria-labelledby={`${category.toLowerCase().replace(" ", "-")}-projects`}>
+            <div class="category-heading">
+              <h2 id={`${category.toLowerCase().replace(" ", "-")}-projects`}>{category}</h2>
+              <span>{categoryProjects.length} project{categoryProjects.length === 1 ? "" : "s"}</span>
+            </div>
+            <div class={categoryProjects.length === 1 ? "project-grid single" : "project-grid"}>
+              {categoryProjects.map((project) => <ProjectCard project={project} />)}
+            </div>
+          </section>
+        );
+      })
+    }
+  </section>
+</BaseLayout>

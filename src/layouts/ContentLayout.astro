@@ -1,0 +1,36 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  date?: Date;
+  tags?: string[];
+  backHref: string;
+  backLabel: string;
+}
+
+const { title, description, date, tags = [], backHref, backLabel } = Astro.props;
+const formattedDate = date
+  ? new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(date)
+  : undefined;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-shell narrow detail-hero">
+    <a class="breadcrumb" href={backHref}>{backLabel}</a>
+    {formattedDate && <p class="eyebrow">{formattedDate}</p>}
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    {
+      tags.length > 0 && (
+        <div class="tag-row" aria-label="Tags">
+          {tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )
+    }
+  </section>
+  <section class="page-shell narrow prose">
+    <slot />
+  </section>
+</BaseLayout>

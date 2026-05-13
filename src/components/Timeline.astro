@@ -1,0 +1,31 @@
+---
+interface TimelineItem {
+  school: string;
+  degree: string;
+  period: string;
+  details: string[];
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {
+    items.map((item) => (
+      <li class="timeline-item">
+        <div>
+          <span>{item.period}</span>
+          <h3>{item.school}</h3>
+          <p>{item.degree}</p>
+          <ul>
+            {item.details.map((detail) => <li>{detail}</li>)}
+          </ul>
+        </div>
+      </li>
+    ))
+  }
+</ol>

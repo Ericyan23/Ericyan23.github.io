@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+const visibleHighlights = project.data.highlights.slice(0, 2);
+const visibleTech = project.data.tech.slice(0, compact ? 4 : 6);
+const visibleMetrics = project.data.metrics.slice(0, 3);
+const links = [
+  project.data.github && { label: "GitHub", href: project.data.github },
+  project.data.demo && { label: "Demo", href: project.data.demo },
+  project.data.paper && { label: "Paper", href: project.data.paper }
+].filter(Boolean) as Array<{ label: string; href: string }>;
+---
+
+<article class="project-card">
+  <div class="card-topline">
+    <span>{project.data.category}</span>
+    <span>{project.data.time}</span>
+  </div>
+  <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+  <p>{project.data.summary}</p>
+
+  {
+    visibleMetrics.length > 0 && (
+      <dl class="metric-row" aria-label={`${project.data.title} key metrics`}>
+        {visibleMetrics.map((metric) => (
+          <div>
+            <dt>{metric.label}</dt>
+            <dd>{metric.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  <p class="card-label">Evidence</p>
+  <ul class="highlight-list">
+    {visibleHighlights.map((highlight) => <li>{highlight}</li>)}
+  </ul>
+
+  <div class="card-actions">
+    <a href={`/projects/${project.id}/`}>Read case study</a>
+    {links.map((link) => <a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>)}
+  </div>
+
+  <p class="card-label">Stack</p>
+  <div class="tag-row" aria-label={`${project.data.title} technologies`}>
+    {visibleTech.map((tech) => <span class="tag">{tech}</span>)}
+  </div>
+</article>

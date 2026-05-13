@@ -1,0 +1,90 @@
+---
+title: "News Source Classification"
+summary: "An NLP pipeline that builds a large headline dataset and classifies whether news headlines came from Fox or NBC using BERT embeddings."
+category: "Data Science"
+type:
+  - "NLP"
+  - "Machine Learning"
+time: "Aug 2024 - Dec 2024"
+tech:
+  - "Python"
+  - "NLP"
+  - "BERT"
+  - "Selenium"
+  - "BeautifulSoup"
+  - "Hugging Face"
+highlights:
+  - "Built a 300k news headline dataset by scraping Fox and NBC."
+  - "Applied deduplication and text normalization."
+  - "Used BERT embeddings for news source classification."
+  - "Achieved 87% accuracy and outperformed baselines by 12%."
+metrics:
+  - label: "Dataset"
+    value: "300k headlines"
+  - label: "Accuracy"
+    value: "87%"
+  - label: "Baseline lift"
+    value: "+12%"
+demo: "https://huggingface.co/CIS519PG/News_Classifier_Demo"
+featured: true
+order: 2
+---
+
+## Summary
+
+News Source Classification is an NLP project that studies whether headlines contain enough linguistic signal to identify their source. The work combines web scraping, dataset construction, text preprocessing, embeddings, and supervised classification.
+
+## Problem
+
+News headlines are short, compressed, and stylistically varied. The project asked whether models could detect source-specific patterns without relying on full article bodies or explicit metadata.
+
+## Research Question
+
+Can a model distinguish news source from headline text alone, and are the learned signals source-associated wording patterns rather than artifacts of scraping, topic mix, or time distribution?
+
+## My Role
+
+I contributed to the end-to-end machine learning workflow: scraping headlines, preparing the dataset, normalizing text, generating BERT-based representations, training classifiers, and evaluating model performance against baselines.
+
+## Approach
+
+- Scraped Fox and NBC headline data with Selenium and BeautifulSoup.
+- Built a dataset of roughly 300k headlines.
+- Removed duplicates and normalized text to reduce noise.
+- Compared baseline models with BERT embedding-based classifiers.
+- Evaluated performance using accuracy and baseline lift.
+
+## Results
+
+- Achieved 87% classification accuracy.
+- Outperformed baseline approaches by 12%.
+- Produced a Hugging Face demo for presenting the model workflow and results.
+
+## Evaluation Notes
+
+The headline classifier is the strongest research-facing project on this site, but the reported score should be treated as an initial result rather than a complete research claim. The next version of this write-up should make the evaluation easier to inspect by documenting:
+
+- the train, validation, and test split strategy;
+- the class balance between Fox and NBC headlines;
+- the exact baseline models used for the 12% comparison;
+- whether BERT was fine-tuned or used as an embedding model with a downstream classifier;
+- representative mistakes and whether they reflect ambiguity, topic imbalance, or source-specific wording.
+
+## Limitations and Next Steps
+
+- The current source pair is limited to Fox and NBC, so the result may not generalize to other outlets.
+- A random split could overstate performance if similar events or near-duplicate headlines appear across splits.
+- A topic-controlled or time-split evaluation would better test whether the model learns source-associated language instead of event distribution.
+- Error analysis should separate genuinely ambiguous headlines from artifacts introduced by scraping and preprocessing.
+
+## Tech Stack
+
+Python, NLP, BERT, Selenium, BeautifulSoup, Hugging Face.
+
+## Links
+
+- [Hugging Face demo](https://huggingface.co/CIS519PG/News_Classifier_Demo)
+
+## What I Learned
+
+The strongest lesson was that dataset quality can dominate model choice. Scraping, deduplication, source balance, and careful preprocessing mattered as much as the downstream classifier. The 87% result is promising, but the next research step is to test whether the learned patterns are robust under topic-controlled and time-aware evaluation.

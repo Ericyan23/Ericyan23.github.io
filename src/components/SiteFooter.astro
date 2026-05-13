@@ -1,0 +1,17 @@
+---
+import { profile } from "../data/profile";
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <strong>{profile.name}</strong>
+      <p>{profile.shortTitle} working across data science, machine learning, NLP, analytics, and data systems.</p>
+    </div>
+    <nav aria-label="Footer links">
+      <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,121 @@
+---
+title: "U.S. Flight Delay Risk and Airport Segmentation"
+summary: "A reproducible data mining study that predicts pre-departure flight delay risk and clusters U.S. airports into interpretable operating-risk segments."
+category: "Data Science"
+type:
+  - "Machine Learning"
+  - "Data Mining"
+  - "Aviation Analytics"
+time: "Spring 2026"
+tech:
+  - "Python"
+  - "pandas"
+  - "scikit-learn"
+  - "LASSO"
+  - "Random Forest"
+  - "Extra Trees"
+  - "k-means"
+  - "Jupyter"
+highlights:
+  - "Built a reproducible pipeline around 2019 U.S. domestic flight records, with a cleaned 10% stratified prediction sample of 791,724 flights."
+  - "Compared an always-on-time baseline, LASSO logistic regression, tuned random forest, and extra-trees model using ROC AUC, PR AUC, balanced accuracy, calibration, and top-decile lift."
+  - "Segmented airports into congested hubs, small high-volatility airports, and lower-risk diversified airports from airport-level operating profiles."
+  - "Converted the analysis into submission-ready notebooks, report, slides, saved figures, and validation scripts."
+metrics:
+  - label: "Raw data"
+    value: "8.1M flights"
+  - label: "Best ROC AUC"
+    value: "0.671"
+  - label: "Top-risk lift"
+    value: "2.21x"
+  - label: "Airport clusters"
+    value: "3 segments"
+github: "https://github.com/Ericyan23/571Proj"
+paper: "/documents/flight-delay-risk-report.pdf"
+featured: true
+order: 3
+---
+
+## Summary
+
+This project studies whether 2019 U.S. domestic flight delays can be predicted before departure and whether airports fall into meaningful operating-risk groups. It uses Kaggle flight delay data derived from the Bureau of Transportation Statistics Marketing Carrier On-Time Performance database.
+
+The work is strongest as a reproducible applied machine learning case study: it moves from data cleaning and exploratory analysis to model comparison, airport clustering, report-ready figures, and a polished final write-up.
+
+## Problem
+
+Flight delay prediction is operationally useful only if the model uses information available before a flight departs. The analysis therefore avoids post-departure variables and focuses on scheduled carrier, origin and destination, calendar timing, scheduled departure block, scheduled elapsed time, and route distance.
+
+The project also asks a second question: are high-risk airports high-risk for the same reason? A congested hub and a small airport with thin service can both have elevated delay rates, but the operational interpretation is different.
+
+## Research Questions
+
+- Can pre-departure information rank flights by delay risk better than a naive always-on-time baseline?
+- How much predictive lift appears in the highest-risk flights?
+- Can airport operating profiles be clustered into interpretable delay-risk segments?
+- Which timing, airport, route, and schedule signals explain the results?
+
+## My Role
+
+I organized the project around a reproducible data mining workflow: data preparation, exploratory analysis, model comparison, airport segmentation, saved outputs, report writing, and presentation materials. The final version emphasizes methods that can be inspected rather than only reporting a single model score.
+
+## Approach
+
+- Cleaned 2019 U.S. domestic flight records and created a 10% stratified prediction sample of 791,724 flights.
+- Preserved seasonal and class structure by stratifying the sample by month and delay status.
+- Compared an always-on-time baseline, LASSO logistic regression, tuned random forest, and extra-trees model on consistent splits.
+- Evaluated models with ROC AUC, PR AUC, balanced accuracy, top-decile lift, threshold analysis, and calibration diagnostics.
+- Aggregated airport-level profiles and used k-means clustering to identify interpretable airport operating segments.
+- Packaged the project with notebooks, reusable Python modules, generated tables, figures, report files, and validation scripts.
+
+## Results
+
+The cleaned prediction sample has a 19.29% delay rate. The always-on-time baseline reaches 80.7% raw accuracy, but it has no ranking power because it predicts the majority class for every flight.
+
+The random forest was the strongest predictive model, with 0.671 holdout ROC AUC, 0.343 holdout PR AUC, 0.622 balanced accuracy, and 2.21x top-decile lift. In practical terms, the model's highest-risk decile contained about 42.7% delayed flights, compared with 19.3% across the full sample.
+
+The airport clustering stage produced three interpretable segments:
+
+- Congested Hubs: 43 airports, 19.4% average delay rate, and 366.8 average flights per day.
+- Small High-Volatility Airports: 67 airports, 21.9% average delay rate, and 15.8 average flights per day.
+- Lower-Risk Diversified Airports: 168 airports, 16.2% average delay rate, and 28.1 average flights per day.
+
+## Visual Evidence
+
+<figure>
+  <img src="/images/projects/flight-delay-risk/model-comparison.png" alt="ROC, precision-recall, and AUC comparison for the flight delay models." />
+  <figcaption>Model comparison across ROC, precision-recall, and headline test metrics. The random forest provides the best overall ranking performance.</figcaption>
+</figure>
+
+<figure>
+  <img src="/images/projects/flight-delay-risk/rf-feature-importance.png" alt="Random forest feature group importance for flight delay prediction." />
+  <figcaption>Feature-group importance shows that departure hour, day-of-month timing, distance, scheduled elapsed time, and month carry meaningful predictive signal.</figcaption>
+</figure>
+
+<figure>
+  <img src="/images/projects/flight-delay-risk/cluster-diagnostics.png" alt="Airport clustering diagnostics and PCA projection." />
+  <figcaption>Airport clustering diagnostics and PCA visualization. The final write-up uses three clusters because the resulting airport typology is easier to interpret operationally.</figcaption>
+</figure>
+
+<figure>
+  <img src="/images/projects/flight-delay-risk/cluster-profile-heatmap.png" alt="Heatmap of airport cluster profiles." />
+  <figcaption>Cluster profile heatmap summarizing how the airport segments differ across volume, delay rate, carrier diversity, route diversity, and timing structure.</figcaption>
+</figure>
+
+## Reproducibility and Artifacts
+
+- [Source repository](https://github.com/Ericyan23/571Proj)
+- [Final report PDF](/documents/flight-delay-risk-report.pdf)
+- [Presentation deck](/documents/flight-delay-risk-presentation.pptx)
+
+The project repository includes four notebooks, reusable Python modules, an end-to-end pipeline runner, saved figures, saved tables, a validation script, and an environment manifest.
+
+## Limitations
+
+The models are intentionally limited to pre-departure information, so they do not directly observe weather, air traffic control disruptions, maintenance events, or upstream aircraft rotation delays. That makes the moderate AUC a realistic result rather than a failure: the available variables contain useful risk signal, but they do not fully determine flight outcomes.
+
+The data cover one calendar year, so the next version should test temporal generalization on later years. A stronger operational version would also add weather, aircraft rotation, airport congestion, and real-time network features.
+
+## What I Learned
+
+This project reinforced the difference between predictive accuracy and decision usefulness. The random forest does not predict delays perfectly, but it meaningfully concentrates risk into a smaller set of flights. The airport segmentation also made the analysis more useful by showing that delay risk is not only a flight-level label; it reflects different airport operating environments.

@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type ListEntry = CollectionEntry<"writing"> | CollectionEntry<"reading">;
+
+interface Props {
+  items: ListEntry[];
+  basePath: "/writing" | "/reading";
+  emptyText?: string;
+}
+
+const { items, basePath, emptyText = "New notes will appear here soon." } = Astro.props;
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(date);
+---
+
+{
+  items.length > 0 ? (
+    <div class="content-list">
+      {items.map((item) => {
+        const description = "description" in item.data ? item.data.description : item.data.summary;
+        const label = "area" in item.data ? item.data.area : "Essay";
+        return (
+          <article class="content-list-item">
+            <div>
+              <p class="eyebrow">{label} / {formatDate(item.data.date)}</p>
+              <h2><a href={`${basePath}/${item.id}/`}>{item.data.title}</a></h2>
+              <p>{description}</p>
+              {item.data.tags.length > 0 && (
+                <div class="tag-row">
+                  {item.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              )}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  ) : (
+    <p class="empty-state">{emptyText}</p>
+  )
+}

@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SkillGroup from "../components/SkillGroup.astro";
+import { profile } from "../data/profile";
+import { skillGroups } from "../data/skills";
+
+const projects = await getCollection("projects");
+const featuredProjects = projects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99) || a.data.title.localeCompare(b.data.title));
+const visibleSkillGroups = skillGroups.slice(0, 3);
+const proofPoints = [
+  "UPenn MSE-DS, expected 2026",
+  "NLP + model evaluation",
+  "AI-native engineering workflows"
+];
+const heroStatement = "I am a Penn MSE-DS student working on NLP, model evaluation, and analytics products. I am looking for data science and ML roles while continuing to explore research questions around short-form text and reliable evaluation.";
+---
+
+<BaseLayout title="Sihan Yan" description={heroStatement}>
+  <section class="page-shell hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Data Science / ML Candidate</p>
+      <h1>Sihan Yan</h1>
+      <p class="lede">{heroStatement}</p>
+      <div class="proof-strip" aria-label="Profile highlights">
+        {proofPoints.map((point) => <span>{point}</span>)}
+      </div>
+      <div class="button-row">
+        <a class="button primary" href="/projects/">View projects</a>
+        <a class="button secondary" href="/cv/">View CV</a>
+        <a class="button secondary" href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="profile-frame">
+        <img src="/images/profile.jpeg" alt="Portrait of Sihan Yan" width="886" height="886" />
+      </div>
+      <p class="hero-brief">My strongest work connects messy data collection, model evaluation, and product-facing analysis that people can inspect and question.</p>
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Selected work</p>
+      <h2>Selected projects</h2>
+      <p>Selected applied machine learning, analytics, and data systems work, written around outcomes and technical decisions.</p>
+    </div>
+    <div class="project-grid">
+      {featuredProjects.map((project) => <ProjectCard project={project} compact />)}
+    </div>
+  </section>
+
+  <section class="direction-panel" aria-label="Research and writing preview">
+    <div class="page-shell">
+      <p class="eyebrow">Current direction</p>
+      <h2>NLP, source-associated signals, and practical model evaluation</h2>
+      <p class="lede">I am especially interested in whether short, noisy public-facing text encodes source-associated signals, and how evaluation can separate robust patterns from dataset artifacts.</p>
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Skills</p>
+      <h2>Project-backed skills</h2>
+      <p>Skills are grouped around tools and methods I can connect to current project work and explain in an interview.</p>
+      <div class="button-row">
+        <a class="button secondary" href="/about/">More about me</a>
+        <a class="button secondary" href="/research/">Research interests</a>
+      </div>
+    </div>
+    <div class="skill-grid">
+      {visibleSkillGroups.map((group) => <SkillGroup title={group.title} items={group.items} />)}
+    </div>
+  </section>
+</BaseLayout>

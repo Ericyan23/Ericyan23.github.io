@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const links = [
+  project.data.github && { label: "GitHub", href: project.data.github },
+  project.data.demo && { label: "Demo", href: project.data.demo },
+  project.data.paper && { label: "Paper", href: project.data.paper }
+].filter(Boolean) as Array<{ label: string; href: string }>;
+---
+
+<BaseLayout title={project.data.title} description={project.data.summary}>
+  <section class="page-shell detail-hero">
+    <a class="breadcrumb" href="/projects/">Back to projects</a>
+    <p class="eyebrow">{project.data.category} / {project.data.type.join(" + ")}</p>
+    <h1>{project.data.title}</h1>
+    <p class="lede">{project.data.summary}</p>
+
+    <div class="meta-grid" aria-label="Project metadata">
+      <div>
+        <span>Timeline</span>
+        <strong>{project.data.time}</strong>
+      </div>
+      <div>
+        <span>Focus</span>
+        <strong>{project.data.type.join(", ")}</strong>
+      </div>
+      <div>
+        <span>Stack</span>
+        <strong>{project.data.tech.slice(0, 4).join(", ")}</strong>
+      </div>
+    </div>
+
+    {
+      project.data.metrics.length > 0 && (
+        <dl class="metric-row detail-metrics" aria-label="Project key metrics">
+          {project.data.metrics.map((metric) => (
+            <div>
+              <dt>{metric.label}</dt>
+              <dd>{metric.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    {
+      links.length > 0 && (
+        <div class="button-row">
+          {links.map((link) => (
+            <a class="button secondary" href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <section class="page-shell project-evidence">
+    <div class="section-header">
+      <p class="eyebrow">Evidence</p>
+      <h2>Highlights</h2>
+    </div>
+    <ul class="evidence-list">
+      {project.data.highlights.map((highlight) => <li>{highlight}</li>)}
+    </ul>
+  </section>
+
+  <section class="page-shell narrow prose">
+    <slot />
+  </section>
+</BaseLayout>

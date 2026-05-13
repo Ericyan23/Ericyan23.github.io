@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = await getCollection("projects");
+const researchAlignedProjects = projects
+  .filter((project) => project.data.category === "Research" || project.data.type.some((type) => ["NLP", "Machine Learning"].includes(type)))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const researchQuestions = [
+  {
+    title: "Source-associated signals in short text",
+    question: "What source-associated textual signals are recoverable from headlines without using article bodies or explicit metadata?",
+    evidence: "News Source Classification built a 300k-headline Fox/NBC dataset and reached 87% accuracy with BERT-based representations.",
+    method: "Text normalization, embedding-based classifiers, baseline comparison, and controlled dataset splits.",
+    next: "Add topic-controlled or time-split evaluation to test whether the model learns source-associated language rather than event distribution."
+  },
+  {
+    title: "Evaluation beyond a single accuracy number",
+    question: "Which errors reveal genuine ambiguity, and which errors point to leakage, topic imbalance, or scraping artifacts?",
+    evidence: "The current news classifier reports accuracy and baseline lift; the next useful evidence is error analysis and per-class behavior.",
+    method: "Confusion analysis, error buckets, baseline definitions, and checks for source/time/topic imbalance.",
+    next: "Write a research appendix for the news classifier with dataset split details, baseline names, and representative mistakes."
+  },
+  {
+    title: "Data systems for repeated analysis",
+    question: "How can analytics systems expose comparison context and uncertainty without making the interface harder to use?",
+    evidence: "HoopsIQ organized fragmented NBA data into search, dashboards, trends, and shot heatmaps for repeated analysis tasks.",
+    method: "SQL-backed data modeling, API design, dashboard workflows, and task-oriented visualization.",
+    next: "Document the data model and user workflows more clearly, then connect the work to decision-support interface design."
+  }
+];
+---
+
+<BaseLayout title="Research" description="Research interests and PhD-aligned direction for Sihan Yan.">
+  <section class="page-shell detail-hero">
+    <p class="eyebrow">Research direction</p>
+    <h1>Source signals in short news text.</h1>
+    <p class="lede">I am shaping a research direction around short public-facing text: what signals models recover, which patterns are robust, and how evaluation separates language from dataset artifacts.</p>
+    <p class="note current-artifact">Current artifact: a Fox/NBC headline classifier with documented limitations and planned split, baseline, and error-analysis checks.</p>
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Agenda</p>
+      <h2>Questions, evidence, and next experiments</h2>
+    </div>
+    <div class="research-list">
+      {
+        researchQuestions.map((item) => (
+          <article class="research-item">
+            <p class="eyebrow">{item.title}</p>
+            <h3>{item.question}</h3>
+            <dl class="research-notes">
+              <div>
+                <dt>Current evidence</dt>
+                <dd>{item.evidence}</dd>
+              </div>
+              <div>
+                <dt>Planned evaluation</dt>
+                <dd>{item.method}</dd>
+              </div>
+              <div>
+                <dt>Next experiment</dt>
+                <dd>{item.next}</dd>
+              </div>
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Related projects</p>
+      <h2>Applied evidence behind the agenda</h2>
+    </div>
+    <div class="project-grid">
+      {researchAlignedProjects.map((project) => <ProjectCard project={project} compact />)}
+    </div>
+  </section>
+</BaseLayout>

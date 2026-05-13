@@ -1,0 +1,86 @@
+---
+title: "FinTrack: Self-Hosted Personal Finance System"
+summary: "A self-hosted personal finance app for SimpleFIN sync, local transaction review, categorization, reporting, transfer matching, and optional Beancount handoff."
+category: "Engineering"
+type:
+  - "Full Stack"
+  - "Data Systems"
+  - "Personal Finance"
+time: "May 2026"
+tech:
+  - "Next.js"
+  - "TypeScript"
+  - "SQLite"
+  - "Drizzle ORM"
+  - "Docker"
+  - "SimpleFIN"
+  - "Beancount"
+  - "Tailwind CSS"
+  - "Recharts"
+highlights:
+  - "Built a self-hosted finance tracker from scratch with an AI-native engineering workflow."
+  - "Implemented SimpleFIN sync, local SQLite storage, review queues, category rules, reports, and transfer matching."
+  - "Designed a secure handoff boundary for optional Beancount workflows without writing directly to the ledger repository."
+metrics:
+  - label: "Scope"
+    value: "Full-stack app"
+  - label: "Storage"
+    value: "Local SQLite"
+  - label: "Deploy"
+    value: "Docker Compose"
+github: "https://github.com/Ericyan23/fintrack"
+featured: true
+order: 0
+---
+
+## Summary
+
+FinTrack is a self-hosted personal finance application for people who want to keep financial data under their own control. It syncs accounts and transactions from SimpleFIN, stores reviewed state locally in SQLite, supports transaction review and categorization workflows, and can generate Beancount handoff files for a separate accounting workflow.
+
+I built the project from scratch recently with an AI-native engineering workflow. I used specialized coding agents for parallel implementation, review, documentation, and iteration while owning the product decisions, architecture, security boundaries, testing, and final integration.
+
+## Problem
+
+Personal finance tools often split across two extremes: polished hosted products that require handing over financial data, or accounting-first systems that are powerful but tedious for day-to-day transaction review. I wanted a private, self-hosted workflow that could sync transactions, make review fast, support reports, and optionally hand reviewed output to Beancount without giving the app direct write access to the ledger.
+
+## My Role
+
+I owned the product design, system architecture, data model, implementation, deployment model, and documentation. Codex assisted with code generation, refactoring, edge-case review, and implementation speed, but I made the core decisions around workflow boundaries, security assumptions, and user experience.
+
+## AI-Native Engineering Workflow
+
+FinTrack was also a practical exercise in using coding agents responsibly. I used AI assistance to accelerate implementation and review loops, but kept the workflow grounded in explicit specs, local verification, and human architectural judgment.
+
+- Broke the product into bounded workstreams such as sync, review queues, reports, transfer matching, Beancount handoff, deployment, and documentation.
+- Used coding agents to propose implementations, identify edge cases, review UI/UX, and improve docs in parallel.
+- Kept ownership of security assumptions, data boundaries, schema decisions, and final integration.
+- Verified changes through local checks, build output, manual inspection, and review of generated code before accepting them.
+
+## Approach
+
+- Built a Next.js and TypeScript application with server-side routes for accounts, transactions, reports, review, categories, rules, sync, transfers, and settings.
+- Used SQLite and Drizzle ORM for local storage of accounts, transactions, categories, review state, rules, transfers, net worth snapshots, and settings.
+- Implemented SimpleFIN sync to fetch account and transaction data, update balances, and create review-ready transaction records.
+- Designed review queues for uncategorized, pending, low-confidence, and transfer-related transactions.
+- Added deterministic rules and optional AI-assisted categorization through Gemini or Claude API keys.
+- Built reporting surfaces for balances, net worth snapshots, spending trends, income, category breakdowns, and account-level activity.
+- Created a Docker deployment model with Basic Auth, private-network assumptions, local backup guidance, and separate mounts for data, Beancount, and handoff files.
+
+## Results
+
+- Delivered a working private finance app with dashboard, accounts, transactions, review, categories, rules, transfers, reports, import, settings, and Beancount handoff surfaces.
+- Preserved a clear security boundary: FinTrack can write handoff packages, but it does not write directly to a Beancount repository.
+- Documented deployment, environment variables, data handling, backup/restore, user workflows, and operational risks.
+- Created a project that demonstrates full-stack product engineering, data modeling, local-first systems thinking, and AI-assisted development discipline.
+
+## Tech Stack
+
+Next.js, React, TypeScript, SQLite, Drizzle ORM, Docker, Docker Compose, SimpleFIN, Beancount handoff design, Tailwind CSS, Recharts, optional Gemini and Claude APIs.
+
+## Links
+
+- [GitHub repository](https://github.com/Ericyan23/fintrack)
+
+## What I Learned
+
+This project sharpened my ability to turn an ambiguous personal workflow into a structured product: define data ownership, model sensitive state, build review queues, separate automation from human approval, and document deployment risks. It also helped me practice using Codex as a serious engineering assistant rather than a replacement for architecture, product judgment, or final code ownership.

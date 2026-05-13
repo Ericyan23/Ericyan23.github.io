@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Timeline from "../components/Timeline.astro";
+import SkillGroup from "../components/SkillGroup.astro";
+import { profile } from "../data/profile";
+import { skillGroups } from "../data/skills";
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99) || a.data.title.localeCompare(b.data.title))
+  .slice(0, 3);
+const cvHighlights = [
+  "UPenn MSE-DS student, expected 2026.",
+  "Built FinTrack, a self-hosted personal finance system with local SQLite storage and Docker deployment.",
+  "Built a 300k-headline news classifier with evaluation limitations documented.",
+  "Built HoopsIQ, an NBA analytics platform with dashboards and shot heatmaps."
+];
+const researchPreparation = [
+  "Research-adjacent project work in short-text NLP, source classification, dataset construction, and model evaluation.",
+  "Next planned artifact: a technical appendix for News Source Classification covering splits, baselines, class balance, and error examples.",
+  "Applied systems background from analytics products, SQL-backed dashboards, API work, and data visualization."
+];
+---
+
+<BaseLayout title="CV" description="HTML CV for Sihan Yan.">
+  <section class="page-shell detail-hero">
+    <p class="eyebrow">CV</p>
+    <h1>Sihan Yan</h1>
+    <p class="lede">{profile.shortTitle}. {profile.title}.</p>
+    <div class="cv-contact-line" aria-label="CV contact information">
+      <a href={`mailto:${profile.email}`}>{profile.email}</a>
+      <span>{profile.location}</span>
+      <a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+      <a href={profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+    <ul class="cv-proof-list">
+      {cvHighlights.map((highlight) => <li>{highlight}</li>)}
+    </ul>
+    <div class="button-row">
+      {profile.cvPdfAvailable && <a class="button primary" href="/cv.pdf" download>Download PDF</a>}
+      <a class="button secondary" href={`mailto:${profile.email}`}>Email me</a>
+      <a class="button secondary" href="/projects/">Selected projects</a>
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Profile</p>
+      <h2>Current positioning</h2>
+      <p>{profile.currentGoal} I am especially interested in roles and research conversations that connect NLP, model evaluation, analytics products, and data systems. I also use AI-native coding workflows to accelerate implementation, review, documentation, and testing while retaining ownership of architecture and final code quality.</p>
+    </div>
+    <div class="resume-panel">
+      <h3>Focus areas</h3>
+      <ul>
+        {profile.interests.map((interest) => <li>{interest}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Research preparation</p>
+      <h2>Research-adjacent work</h2>
+      <p>For PhD-aligned conversations, the strongest current thread is evaluation of short-form news text and the limits of headline-only source classification.</p>
+    </div>
+    <div class="resume-panel">
+      <h3>Current evidence</h3>
+      <ul>
+        {researchPreparation.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Education</p>
+      <h2>Education</h2>
+    </div>
+    <Timeline items={profile.education} />
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Selected projects</p>
+      <h2>Evidence of applied work</h2>
+    </div>
+    <div class="resume-project-list">
+      {
+        projects.map((project) => (
+          <article>
+            <div class="resume-project-heading">
+              <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+              <span>{project.data.time}</span>
+            </div>
+            <p>{project.data.summary}</p>
+            <ul>
+              {project.data.highlights.slice(0, 2).map((highlight) => <li>{highlight}</li>)}
+            </ul>
+            <p class="note">{project.data.tech.join(", ")}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Skills</p>
+      <h2>Technical skills</h2>
+    </div>
+    <div class="skill-grid compact">
+      {skillGroups.map((group) => <SkillGroup title={group.title} items={group.items} />)}
+    </div>
+  </section>
+</BaseLayout>

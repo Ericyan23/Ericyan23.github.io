@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContentList from "../../components/ContentList.astro";
+
+const posts = (await getCollection("writing", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Writing" description="Writing and project retrospectives by Sihan Yan." noindex>
+  <section class="page-shell detail-hero">
+    <p class="eyebrow">Writing</p>
+    <h1>Project retrospectives, notes, and technical essays.</h1>
+    <p class="lede">Short essays on project decisions, model evaluation, data work, and what I am learning from building systems.</p>
+  </section>
+  <section class="page-shell">
+    <ContentList items={posts} basePath="/writing" emptyText="I am editing the first public essays now. Finished pieces will appear here once they are useful to readers." />
+  </section>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SkillGroup from "../components/SkillGroup.astro";
+import Timeline from "../components/Timeline.astro";
+import { profile } from "../data/profile";
+import { skillGroups } from "../data/skills";
+---
+
+<BaseLayout title="About" description="About Sihan Yan, education, interests, and current focus.">
+  <section class="page-shell two-column about-hero">
+    <div class="section-header">
+      <p class="eyebrow">About</p>
+      <h1>Penn MSE-DS student focused on NLP.</h1>
+      <div class="proof-strip" aria-label="About highlights">
+        <span>UPenn MSE-DS</span>
+        <span>Model evaluation</span>
+        <span>Analytics products</span>
+      </div>
+      <p class="lede">I am pursuing the Master of Science in Engineering in Data Science at the University of Pennsylvania. My background connects analytics, supply chain systems, machine learning, and product-oriented engineering.</p>
+      <p class="lede">I am looking for data science and machine learning roles while staying open to research conversations around applied NLP, model evaluation, and data systems.</p>
+    </div>
+    <div class="profile-frame">
+      <img src="/images/profile.jpeg" alt="Portrait of Sihan Yan" width="886" height="886" />
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">How I build</p>
+      <h2>AI-native engineering, with human ownership.</h2>
+      <p>I use Codex, Claude Code, opencode, and parallel AI coding workflows to move faster from ambiguous product ideas to working software. My role is not just prompting models: I decompose tasks, set technical constraints, review generated code, test behavior, and integrate changes into maintainable systems.</p>
+    </div>
+    <div class="resume-panel">
+      <h3>Working principles</h3>
+      <ul>
+        <li>Keep architecture, security boundaries, and product decisions human-owned.</li>
+        <li>Use specialized agents for implementation, review, documentation, and design critique.</li>
+        <li>Verify behavior through local checks, tests, build output, and manual review before integration.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Education</p>
+      <h2>Academic path</h2>
+      <p>My education combines graduate data science training with undergraduate analytics and operations foundations.</p>
+    </div>
+    <Timeline items={profile.education} />
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Now</p>
+      <h2>What I am focusing on</h2>
+    </div>
+    <div class="focus-grid">
+      {profile.now.map((item) => <article class="focus-item"><p>{item}</p></article>)}
+    </div>
+  </section>
+
+  <section class="page-shell">
+    <div class="section-header">
+      <p class="eyebrow">Skills</p>
+      <h2>Working toolkit</h2>
+    </div>
+    <div class="skill-grid">
+      {skillGroups.map((group) => <SkillGroup title={group.title} items={group.items} />)}
+    </div>
+  </section>
+</BaseLayout>

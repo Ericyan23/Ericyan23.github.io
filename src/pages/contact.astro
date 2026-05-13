@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { profile } from "../data/profile";
+---
+
+<BaseLayout title="Contact" description="Contact Sihan Yan for jobs, research conversations, collaborations, and project discussions.">
+  <section class="page-shell two-column">
+    <div class="section-header">
+      <p class="eyebrow">Contact</p>
+      <h1>Open to DS/ML roles.</h1>
+      <p class="lede">The best way to reach me is email. I am also open to research-aligned conversations and collaboration on applied NLP, model evaluation, or analytics projects.</p>
+    </div>
+    <div class="contact-list">
+      <a href={`mailto:${profile.email}`}><strong>Email</strong> {profile.email}</a>
+      <a href={profile.links.github} target="_blank" rel="noreferrer"><strong>GitHub</strong> github.com/Ericyan23</a>
+      <a href={profile.links.linkedin} target="_blank" rel="noreferrer"><strong>LinkedIn</strong> linkedin.com/in/sihanyan</a>
+    </div>
+  </section>
+</BaseLayout>

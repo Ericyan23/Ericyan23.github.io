@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContentList from "../../components/ContentList.astro";
+
+const notes = (await getCollection("reading", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Reading" description="Paper reading notes and research notes by Sihan Yan." noindex>
+  <section class="page-shell detail-hero">
+    <p class="eyebrow">Reading</p>
+    <h1>Paper notes and research reading logs.</h1>
+    <p class="lede">Working notes on papers I am reading in NLP, applied machine learning, information quality, and data systems.</p>
+  </section>
+  <section class="page-shell">
+    <ContentList items={notes} basePath="/reading" emptyText="Public paper notes are being revised for clarity. I will publish notes here once they include the question, method, takeaway, and follow-up idea." />
+  </section>
+</BaseLayout>
