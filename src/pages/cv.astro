@@ -6,19 +6,20 @@ import SkillGroup from "../components/SkillGroup.astro";
 import { profile } from "../data/profile";
 import { skillGroups } from "../data/skills";
 
+const cvProjectOrder = ["news-source-classification", "hoopsiq", "flight-delay-risk-segmentation"];
 const projects = (await getCollection("projects"))
-  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99) || a.data.title.localeCompare(b.data.title))
-  .slice(0, 3);
+  .filter((project) => cvProjectOrder.includes(project.id))
+  .sort((a, b) => cvProjectOrder.indexOf(a.id) - cvProjectOrder.indexOf(b.id));
 const cvHighlights = [
-  "UPenn MSE-DS student, expected 2026.",
-  "Built FinTrack, a self-hosted personal finance system with local SQLite storage and Docker deployment.",
-  "Built a 300k-headline news classifier with evaluation limitations documented.",
-  "Built HoopsIQ, an NBA analytics platform with dashboards and shot heatmaps."
+  "UPenn MSE-DS student, expected 2026, with 3.8/4.0 GPA.",
+  "Normalized Penn EENT alumni engagement data into an 11-table 3NF schema across 6,833 contacts and 15,971 enrollment rows.",
+  "Built Tableau, Databricks, SQL, and Salesforce workflows for marketing, donation, and engagement analytics.",
+  "Built analytics projects across NLP classification, NBA performance data, and marketing channel regression."
 ];
-const researchPreparation = [
-  "Research-adjacent project work in short-text NLP, source classification, dataset construction, and model evaluation.",
-  "Next planned artifact: a technical appendix for News Source Classification covering splits, baselines, class balance, and error examples.",
-  "Applied systems background from analytics products, SQL-backed dashboards, API work, and data visualization."
+const analyticsEvidence = [
+  "CRM and alumni data normalization across Penn SIS, HubSpot, Airtable, Qualtrics, and relationship-documented database tables.",
+  "Marketing analytics work across Google Grants, StackAdapt, Google Ads, Facebook, Bing, Google Analytics, and Salesforce donation data.",
+  "Applied modeling with regression diagnostics, churn and retention modeling, SMOTE, ROC/AUC, BERT embeddings, and SQL-backed dashboards."
 ];
 ---
 
@@ -46,8 +47,8 @@ const researchPreparation = [
   <section class="page-shell two-column">
     <div class="section-header">
       <p class="eyebrow">Profile</p>
-      <h2>Current positioning</h2>
-      <p>{profile.currentGoal} I am especially interested in roles and research conversations that connect NLP, model evaluation, analytics products, and data systems. I also use AI-native coding workflows to accelerate implementation, review, documentation, and testing while retaining ownership of architecture and final code quality.</p>
+      <h2>Data analyst positioning</h2>
+      <p>{profile.currentGoal} My strongest evidence is in cleaning messy CRM and operational data, designing relational data structures, building repeatable SQL and Databricks workflows, and translating analytics into reporting that supports outreach, budgeting, and retention decisions.</p>
     </div>
     <div class="resume-panel">
       <h3>Focus areas</h3>
@@ -59,14 +60,14 @@ const researchPreparation = [
 
   <section class="page-shell two-column">
     <div class="section-header">
-      <p class="eyebrow">Research preparation</p>
-      <h2>Research-adjacent work</h2>
-      <p>For PhD-aligned conversations, the strongest current thread is evaluation of short-form news text and the limits of headline-only source classification.</p>
+      <p class="eyebrow">Analytics evidence</p>
+      <h2>Work I can discuss in detail</h2>
+      <p>The PDF version emphasizes database normalization, BI reporting, SQL ETL, marketing analytics, and applied modeling from recent work and projects.</p>
     </div>
     <div class="resume-panel">
-      <h3>Current evidence</h3>
+      <h3>Evidence</h3>
       <ul>
-        {researchPreparation.map((item) => <li>{item}</li>)}
+        {analyticsEvidence.map((item) => <li>{item}</li>)}
       </ul>
     </div>
   </section>

@@ -1,31 +1,22 @@
 export const skillGroups = [
   {
-    title: "Strong / Project-Backed",
-    items: ["Python", "SQL", "React", "Node.js", "data visualization", "Selenium", "BeautifulSoup"]
-  },
-  {
-    title: "Applied ML and NLP",
-    items: ["BERT", "Hugging Face", "embeddings", "text normalization", "scikit-learn", "model evaluation"]
+    title: "Languages",
+    items: ["Python", "SQL", "R", "JavaScript", "HTML/CSS"]
   },
   {
     title: "Analytics Methods",
-    items: ["regression", "hypothesis testing", "A/B testing", "clustering", "PCA", "time series"]
+    items: ["regression", "time series", "A/B testing", "hypothesis testing", "correlation analysis", "KPI reporting"]
   },
   {
-    title: "Tools I Use",
-    items: ["Git", "Jupyter", "REST APIs", "PostgreSQL", "MySQL", "Tableau", "Power BI"]
+    title: "Machine Learning",
+    items: ["Random Forests", "Logistic Regression", "SMOTE", "ROC/AUC", "BERT embeddings", "XGBoost"]
   },
   {
-    title: "AI-Assisted Engineering",
-    items: [
-      "Codex",
-      "Claude Code",
-      "opencode",
-      "multi-agent task decomposition",
-      "AI-assisted code review",
-      "prompt-to-spec workflows",
-      "test-driven verification",
-      "documentation workflows"
-    ]
+    title: "BI and Data Tools",
+    items: ["Tableau Certified", "Power BI", "Databricks", "Airtable", "Google Analytics", "Salesforce", "HubSpot", "Qualtrics", "Git"]
+  },
+  {
+    title: "Databases",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Neo4j", "3NF modeling", "ERD documentation"]
   }
 ];
