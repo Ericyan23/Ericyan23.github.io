@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.3.1"><title>News Source Classification | Sihan Yan</title><meta name="description" content="An NLP pipeline that builds a large headline dataset and classifies whether news headlines came from Fox or NBC using BERT embeddings."><link rel="canonical" href="https://ericyan23.github.io/projects/news-source-classification/"><link rel="icon" href="/favicon.ico" sizes="32x32"><meta property="og:title" content="News Source Classification | Sihan Yan"><meta property="og:description" content="An NLP pipeline that builds a large headline dataset and classifies whether news headlines came from Fox or NBC using BERT embeddings."><meta property="og:type" content="website"><meta property="og:url" content="https://ericyan23.github.io/projects/news-source-classification/"><meta property="og:image" content="https://ericyan23.github.io/images/profile.jpeg"><link rel="stylesheet" href="/_astro/BaseLayout.DisZsYUD.css"></head> <body> <a class="skip-link" href="#content">Skip to content</a> <header class="site-header"> <div class="header-inner"> <a class="brand" href="/" aria-label="Sihan Yan home"> <span class="brand-mark">SY</span> <span>Sihan Yan</span> </a> <nav class="desktop-nav" aria-label="Primary navigation"> <a href="/">Home</a><a href="/about/">About</a><a href="/projects/" aria-current="page">Projects</a><a href="/research/">Research</a><a href="/cv/">CV</a><a href="/contact/">Contact</a> </nav> <details class="mobile-nav"> <summary>Menu</summary> <nav aria-label="Mobile navigation"> <a href="/">Home</a><a href="/about/">About</a><a href="/projects/" aria-current="page">Projects</a><a href="/research/">Research</a><a href="/cv/">CV</a><a href="/contact/">Contact</a> </nav> </details> </div> </header> <main id="content">  <section class="page-shell detail-hero"> <a class="breadcrumb" href="/projects/">Back to projects</a> <p class="eyebrow">Data Science / NLP + Machine Learning</p> <h1>News Source Classification</h1> <p class="lede">An NLP pipeline that builds a large headline dataset and classifies whether news headlines came from Fox or NBC using BERT embeddings.</p> <div class="meta-grid" aria-label="Project metadata"> <div> <span>Timeline</span> <strong>Aug 2024 - Dec 2024</strong> </div> <div> <span>Focus</span> <strong>NLP, Machine Learning</strong> </div> <div> <span>Stack</span> <strong>Python, NLP, BERT, Selenium</strong> </div> </div> <dl class="metric-row detail-metrics" aria-label="Project key metrics"> <div> <dt>Dataset</dt> <dd>300k headlines</dd> </div><div> <dt>Accuracy</dt> <dd>87%</dd> </div><div> <dt>Baseline lift</dt> <dd>+12%</dd> </div> </dl> <div class="button-row"> <a class="button secondary" href="https://huggingface.co/CIS519PG/News_Classifier_Demo" target="_blank" rel="noreferrer"> Demo </a> </div> </section> <section class="page-shell project-evidence"> <div class="section-header"> <p class="eyebrow">Evidence</p> <h2>Highlights</h2> </div> <ul class="evidence-list"> <li>Built a 300k news headline dataset by scraping Fox and NBC.</li><li>Applied deduplication and text normalization.</li><li>Used BERT embeddings for news source classification.</li><li>Achieved 87% accuracy and outperformed baselines by 12%.</li> </ul> </section> <section class="page-shell narrow prose">  <h2 id="summary">Summary</h2>
+<p>News Source Classification is an NLP project that studies whether headlines contain enough linguistic signal to identify their source. The work combines web scraping, dataset construction, text preprocessing, embeddings, and supervised classification.</p>
+<h2 id="problem">Problem</h2>
+<p>News headlines are short, compressed, and stylistically varied. The project asked whether models could detect source-specific patterns without relying on full article bodies or explicit metadata.</p>
+<h2 id="research-question">Research Question</h2>
+<p>Can a model distinguish news source from headline text alone, and are the learned signals source-associated wording patterns rather than artifacts of scraping, topic mix, or time distribution?</p>
+<h2 id="my-role">My Role</h2>
+<p>I contributed to the end-to-end machine learning workflow: scraping headlines, preparing the dataset, normalizing text, generating BERT-based representations, training classifiers, and evaluating model performance against baselines.</p>
+<h2 id="approach">Approach</h2>
+<ul>
+<li>Scraped Fox and NBC headline data with Selenium and BeautifulSoup.</li>
+<li>Built a dataset of roughly 300k headlines.</li>
+<li>Removed duplicates and normalized text to reduce noise.</li>
+<li>Compared baseline models with BERT embedding-based classifiers.</li>
+<li>Evaluated performance using accuracy and baseline lift.</li>
+</ul>
+<h2 id="results">Results</h2>
+<ul>
+<li>Achieved 87% classification accuracy.</li>
+<li>Outperformed baseline approaches by 12%.</li>
+<li>Produced a Hugging Face demo for presenting the model workflow and results.</li>
+</ul>
+<h2 id="evaluation-notes">Evaluation Notes</h2>
+<p>The headline classifier is the strongest research-facing project on this site, but the reported score should be treated as an initial result rather than a complete research claim. The next version of this write-up should make the evaluation easier to inspect by documenting:</p>
+<ul>
+<li>the train, validation, and test split strategy;</li>
+<li>the class balance between Fox and NBC headlines;</li>
+<li>the exact baseline models used for the 12% comparison;</li>
+<li>whether BERT was fine-tuned or used as an embedding model with a downstream classifier;</li>
+<li>representative mistakes and whether they reflect ambiguity, topic imbalance, or source-specific wording.</li>
+</ul>
+<h2 id="limitations-and-next-steps">Limitations and Next Steps</h2>
+<ul>
+<li>The current source pair is limited to Fox and NBC, so the result may not generalize to other outlets.</li>
+<li>A random split could overstate performance if similar events or near-duplicate headlines appear across splits.</li>
+<li>A topic-controlled or time-split evaluation would better test whether the model learns source-associated language instead of event distribution.</li>
+<li>Error analysis should separate genuinely ambiguous headlines from artifacts introduced by scraping and preprocessing.</li>
+</ul>
+<h2 id="tech-stack">Tech Stack</h2>
+<p>Python, NLP, BERT, Selenium, BeautifulSoup, Hugging Face.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://huggingface.co/CIS519PG/News_Classifier_Demo">Hugging Face demo</a></li>
+</ul>
+<h2 id="what-i-learned">What I Learned</h2>
+<p>The strongest lesson was that dataset quality can dominate model choice. Scraping, deduplication, source balance, and careful preprocessing mattered as much as the downstream classifier. The 87% result is promising, but the next research step is to test whether the learned patterns are robust under topic-controlled and time-aware evaluation.</p>  </section>  </main> <footer class="site-footer"> <div class="footer-inner"> <div> <strong>Sihan Yan</strong> <p>Data analyst and UPenn MSE-DS student working across data science, machine learning, NLP, analytics, and data systems.</p> </div> <nav aria-label="Footer links"> <a href="https://github.com/Ericyan23" target="_blank" rel="noreferrer">GitHub</a> <a href="https://www.linkedin.com/in/sihanyan/" target="_blank" rel="noreferrer">LinkedIn</a> <a href="/contact/">Contact</a> </nav> </div> </footer> </body></html>
