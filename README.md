@@ -8,7 +8,7 @@ This repository is now an Astro + TypeScript + MDX static site for Sihan Yan's p
 - TypeScript
 - MDX
 - Astro Content Collections
-- GitHub Pages deployment through GitHub Actions
+- GitHub Pages deployment from the `main` branch root
 
 ## Local Development
 
@@ -31,9 +31,26 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-The workflow in `.github/workflows/deploy.yml` builds the site and deploys `dist/` to GitHub Pages whenever `main` is pushed.
+This repository is configured for GitHub Pages branch deployment from the `main` branch root. Because the source app is Astro, the built files from `dist/` must be copied into the repository root before committing.
 
-In GitHub repository settings, set Pages source to **GitHub Actions**.
+Recommended deploy flow:
+
+```bash
+npm run build
+cp -R dist/. .
+git status
+git add .
+git commit -m "Publish site updates"
+git push origin main
+```
+
+In GitHub repository settings, Pages should use:
+
+- Source: **Deploy from a branch**
+- Branch: `main`
+- Folder: `/ (root)`
+
+The root-level generated files such as `index.html`, `cv/index.html`, `_astro/`, and `cv.pdf` are intentionally committed so GitHub Pages can serve the site directly.
 
 ## Content Model
 
@@ -109,9 +126,10 @@ The `/reading/` list and `/reading/new-paper-note/` detail page will update auto
 
 ## Personal Data to Update
 
-Edit `src/data/profile.ts` for email, CV PDF availability, current focus, links, education, and research interests.
+Edit `src/data/profile.ts` for email, CV PDF availability, current focus, links, education, and interests.
 
 To enable the CV download:
 
 1. Add `public/cv.pdf`.
 2. Set `cvPdfAvailable: true` in `src/data/profile.ts`.
+3. Run the deploy flow above so the generated root-level `cv.pdf` is updated.
